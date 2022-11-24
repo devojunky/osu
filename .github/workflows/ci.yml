@@ -31,5 +31,5 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
-          name: osu-ios-build-${ github.ref }
+          name: osu-ios-build-${{ github.ref_name }}
           path: osu.iOS/bin
