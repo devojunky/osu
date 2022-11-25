@@ -21,15 +21,19 @@ jobs:
         with:
           dotnet-version: "6.0.x"
 
+      - name: get version
+        run: |
+         echo "bver=$(git describe --tags --abbrev=0)" >> ${GITHUB_ENV}
+
       # Contrary to seemingly any other msbuild, msbuild running on macOS/Mono
       # cannot accept .sln(f) files as arguments.
       # Build just the main game for now.
       - name: Build
-        run: msbuild osu.iOS/osu.iOS.csproj /restore /p:BuildIpa=True /p:Configuration=Release /p:Platform=iPhone /p:VersionAssembly=2022.1123.0
+        run: msbuild osu.iOS/osu.iOS.csproj /restore /p:BuildIpa=True /p:Configuration=Release /p:Platform=iPhone /p:VersionAssembly=${{ env.bver }}
 
       - name: upload stuff idk
         uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
-          name: osu-ios-build-${{ github.ref_name }}
+          name: osu-ios-build-${{ env.bver }}
           path: osu.iOS/bin/iPhone/Release/*.ipa
