@@ -20,7 +20,7 @@ jobs:
 
       - name: get tags
         run: |
-          git fetch --tags --force --depth 30
+          git fetch --tags --force --depth 10
           echo ::set-output name=subject::$(git for-each-ref $GITHUB_REF --format='%(contents:subject)')
 
       - name: get version
@@ -37,7 +37,7 @@ jobs:
       # cannot accept .sln(f) files as arguments.
       # Build just the main game for now.
       - name: Build
-        run: msbuild osu.iOS/osu.iOS.csproj /restore /p:BuildIpa=True /p:Configuration=Release /p:Platform=iPhone /p:VersionAssembly=${{ env.bver }}
+        run: msbuild osu.iOS/osu.iOS.csproj /restore /p:VersionAssembly=${{ env.bver }} /p:Version=${{ env.bver }} /p:PackageVersion=${{ env.bver }} /p:BuildIpa=True /p:Configuration=Release /p:Platform=iPhone
 
       - name: upload stuff idk
         uses: actions/upload-artifact@v2
