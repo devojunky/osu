@@ -25,7 +25,7 @@ jobs:
       # cannot accept .sln(f) files as arguments.
       # Build just the main game for now.
       - name: Build
-        run: msbuild osu.iOS/osu.iOS.csproj /restore /p:BuildIpa=True /p:Configuration=Release,Platform=iPhone
+        run: msbuild osu.iOS/osu.iOS.csproj /restore /p:BuildIpa=True /p:Configuration=Release /p:Platform=iPhone /p:Version=2022.1123.0
 
       - name: upload stuff idk
         uses: actions/upload-artifact@v2
