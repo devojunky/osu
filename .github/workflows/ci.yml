@@ -20,12 +20,13 @@ jobs:
 
       - name: get tags
         run: |
-          git fetch --tags --force
+          git fetch --tags --force --depth 30
           echo ::set-output name=subject::$(git for-each-ref $GITHUB_REF --format='%(contents:subject)')
 
       - name: get version
         run: |
           echo "bver=$(git describe --tags --abbrev=0)" >> ${GITHUB_ENV}
+          echo "got version: $bver ${{ env.bver }}"
 
       - name: Install .NET 6.0.x
         uses: actions/setup-dotnet@v1
