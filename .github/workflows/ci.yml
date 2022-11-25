@@ -32,4 +32,4 @@ jobs:
         if: ${{ always() }}
         with:
           name: osu-ios-build-${{ github.ref_name }}
-          path: osu.iOS/bin
+          path: osu.iOS/bin/iPhone/Release/*.ipa
