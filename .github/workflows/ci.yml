@@ -15,15 +15,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 30
+
+      - name: get tags
+        run: |
+          git fetch --tags --force
+          echo ::set-output name=subject::$(git for-each-ref $GITHUB_REF --format='%(contents:subject)')
+
+      - name: get version
+        run: |
+          echo "bver=$(git describe --tags --abbrev=0)" >> ${GITHUB_ENV}
 
       - name: Install .NET 6.0.x
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: "6.0.x"
-
-      - name: get version
-        run: |
-         echo "bver=$(git describe --tags --abbrev=0)" >> ${GITHUB_ENV}
 
       # Contrary to seemingly any other msbuild, msbuild running on macOS/Mono
       # cannot accept .sln(f) files as arguments.
