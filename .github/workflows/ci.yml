@@ -45,11 +45,11 @@ jobs:
         run: dotnet workload install maui-ios
 
       - name: Build
-        run: dotnet publish -f:net6.0-ios -c Release osu.iOS --output ./osu.iOS/bin
+        run: dotnet publish -f:net6.0-ios -c Release osu.iOS --output ./osu.iOS/bin /property:Version=${{ env.bver }}
       
       - name: upload stuff idk
         uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
           name: osu-ios-build-${{ env.bver }}
-          path: osu.iOS/bin/*
+          path: osu.iOS/bin/*.ipa
