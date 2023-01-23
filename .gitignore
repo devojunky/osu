@@ -342,3 +342,4 @@ FodyWeavers.xsd
 **/FodyWeavers.xml
 
 .idea/.idea.osu.Desktop/.idea/misc.xml
+.DS_Store
